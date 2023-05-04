@@ -24,10 +24,7 @@ private lateinit var firebaseAuth: FirebaseAuth
             val password = binding.passET.text.toString()
             if (email.isNotEmpty() && password.isNotEmpty()){
                 login(email,password)
-                val sheard = getSharedPreferences("splash" , MODE_PRIVATE)
-                val edit = sheard.edit()
-                 edit.putString("email" , email).apply()
-                 edit.putString("password" , password).apply()
+
             }else{
                 Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show()
             }
@@ -47,6 +44,12 @@ private lateinit var firebaseAuth: FirebaseAuth
                 if (task.isSuccessful) {
                     // Login successful
                     val user = firebaseAuth.currentUser
+                    val sheard = getSharedPreferences("user" , MODE_PRIVATE)
+                    val edit = sheard.edit()
+                    edit.putString("email" , email)
+                    edit.putBoolean("che" , true)
+                    edit.putString("password" , password)
+                    edit.apply()
                     startActivity(Intent(this , Home::class.java))
                 } else {
                     // Login failed
